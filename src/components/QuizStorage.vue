@@ -3,17 +3,19 @@
     <button @click="loadData">Load Data</button>
     <button @click="displayData">Display Data</button>
     <div>
-      <AppQuiz v-for="(question, index) in quiz"
-               :key="index" 
-               :question="question.question" 
-               :correct="question.correct_answer" 
-               :incorrect="question.incorrect_answers"></AppQuiz>
+      <AppQuiz
+        v-for="(question, index) in quiz"
+        :key="index"
+        :question="question.question"
+        :correct="question.correct_answer"
+        :incorrect="question.incorrect_answers"
+      ></AppQuiz>
     </div>
   </div>
 </template>
 <script>
 import { mapActions } from "vuex";
-import AppQuiz from '../views/Quiz.vue'
+import AppQuiz from "../views/Quiz.vue";
 export default {
   data() {
     return {
@@ -32,8 +34,8 @@ export default {
     },
     displayData() {
       const quiz = this.$store.getters.trivias;
-      this.quiz = quiz.results
-    }
+      this.quiz = quiz.results;
+    },
   }
 };
 </script>
