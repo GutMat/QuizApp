@@ -1,15 +1,13 @@
 <template>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title text-center">{{question}}</h3>
-    </div>
-    <div class="panel-body">
+  <div class="card">
+      <h3 class="card-title text-center">{{question}}</h3>
+    <div class="card-body">
       <div
-        class="col-xs-12 col-sm-6 text-center answer"
+        class="col-xs-12 col-sm-6 text-center"
         v-for="(answer, index) in answers"
         :key="index"
       >
-        <button class="btn btn-primary btn-lg" style="margin: 10px">{{answer}}</button>
+        <button class="btn btn-primary btn-lg" style="margin: 10px" @click="selectedAnswer(answer)">{{answer}}</button>
       </div>
     </div>
   </div>
@@ -35,6 +33,15 @@ export default {
         }
         return answers
       }
+  },
+  methods: {
+    selectedAnswer(value) {
+        if(value == this.correct){
+          alert("Good answer :)")
+        } else {
+          alert("Bad answer :(")
+        }
+    }
   },
 };
 </script>
