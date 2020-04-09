@@ -4,7 +4,7 @@ import VueRouter from "vue-router";
 import Home from '../components/Home.vue';
 import Players from '../components/Players.vue';
 import QuestionCreator from '../components/QuestionCreator.vue';
-import QuizMenu from '../components/QuizMenu.vue';
+import QuizStorage from '../components/QuizStorage.vue';
 import Stats from '../components/Stats.vue';
 
 Vue.use(VueRouter);
@@ -18,7 +18,7 @@ const routes = [
   {
     path: "/quiz-menu",
     name: "QuizMenu",
-    component: QuizMenu
+    component: QuizStorage
   },
   {
     path: "/players",

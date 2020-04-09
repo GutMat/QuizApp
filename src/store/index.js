@@ -14,7 +14,7 @@ export default new Vuex.Store({
   },
   actions: {
     loadData: ({ commit }) => {
-      Vue.http.get('https://opentdb.com/api.php?amount=10')
+      Vue.http.get('https://opentdb.com/api.php?amount=10&type=multiple')
         .then(response => response.json())
         .then(data => {
           if (data) {
