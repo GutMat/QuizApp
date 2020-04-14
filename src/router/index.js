@@ -1,11 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Home from '../components/Home.vue';
-import Players from '../components/Players.vue';
-import QuestionCreator from '../components/QuestionCreator.vue';
-import QuizStorage from '../components/QuizStorage.vue';
-import Stats from '../components/Stats.vue';
+import Home from "../components/home/Home.vue";
+import Players from "../components/players/Players.vue";
+import QuestionCreator from "../components/quiz/QuestionCreator.vue";
+import QuizStorage from "../components/quiz/QuizStorage.vue";
+import Stats from "../components/players/Stats.vue";
 
 Vue.use(VueRouter);
 
@@ -34,7 +34,7 @@ const routes = [
     path: "/question-creator",
     name: "QuestionCreator",
     component: QuestionCreator
-  },
+  }
 ];
 
 const router = new VueRouter({

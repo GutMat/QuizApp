@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <div class="container">
-        <AppHeader></AppHeader>
-        <router-view />
+    <AppHeader></AppHeader>
+    <div class="container-fluid">
+      <router-view />
     </div>
   </div>
 </template>
 <script>
-import AppHeader from './components/Header.vue';
+import AppHeader from "./components/shared/Header.vue";
 export default {
   components: {
     AppHeader
   }
-}
+};
 </script>
 <style>
-
 </style>

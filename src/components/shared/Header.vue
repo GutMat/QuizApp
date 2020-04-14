@@ -10,7 +10,7 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav  class="ml-auto">
+        <b-navbar-nav class="ml-auto">
           <b-nav-item>
             <router-link to="/" activeClass="active" router-tag="li" exact>
               <a class="nav-link">Home</a>
