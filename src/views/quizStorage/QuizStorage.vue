@@ -94,6 +94,7 @@ export default {
       this.isCountryQuizVisible = false;
       this.isMenuVisible = true;
       this.selectedCategory = "";
+      this.trivia = [];
     },
     displayQuiz() {
       this.$http
