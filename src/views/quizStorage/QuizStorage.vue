@@ -6,11 +6,23 @@
     </div>
     <div v-if="isCountryQuizVisible">
       <h3>Country-Flag Quiz</h3>
-      <button @click="displayFlagQuiz">Back</button>
+      <button @click="goBack">Back</button>
     </div>
     <div v-if="isTriviaQuizVisible">
       <h3>Trivia</h3>
-      <button @click="displayTrivia">Back</button>
+      <h4>Choose category</h4>
+      <div>
+        <select v-model="selectedCategory">
+          <option
+            v-for="(category, index) in triviaCategories[0]"
+            :value="category.name"
+            :key="index"
+            >{{ category.name }}</option
+          >
+        </select>
+        <p>{{ selectedCategory }}</p>
+      </div>
+      <button @click="goBack">Back</button>
     </div>
   </div>
 </template>
@@ -21,16 +33,36 @@ export default {
       isMenuVisible: true,
       isCountryQuizVisible: false,
       isTriviaQuizVisible: false,
+      triviaCategories: [],
+      selectedCategory: "",
     };
   },
   methods: {
     displayTrivia() {
-      this.isTriviaQuizVisible = !this.isTriviaQuizVisible;
-      this.isMenuVisible = !this.isMenuVisible;
+      this.$http
+        .get("https://opentdb.com/api_category.php")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          const categories = [];
+          for (let key in data) {
+            categories.push(data[key]);
+          }
+          this.triviaCategories = categories;
+        });
+      this.isTriviaQuizVisible = true;
+      this.isMenuVisible = false;
     },
     displayFlagQuiz() {
-      this.isCountryQuizVisible = !this.isCountryQuizVisible;
-      this.isMenuVisible = !this.isMenuVisible;
+      this.isCountryQuizVisible = true;
+      this.isMenuVisible = false;
+    },
+    goBack() {
+      this.isTriviaQuizVisible = false;
+      this.isCountryQuizVisible = false;
+      this.isMenuVisible = true;
+      this.selectedCategory = "";
     },
   },
 };
