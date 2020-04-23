@@ -1,11 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Home from "../components/home/Home.vue";
-import Players from "../components/players/Players.vue";
-import QuestionCreator from "../components/quiz/QuestionCreator.vue";
-import QuizStorage from "../components/quiz/QuizStorage.vue";
-import Stats from "../components/players/Stats.vue";
+import Home from "../views/home/Home.vue";
+import Players from "../views/players/Players.vue";
+import QuestionCreator from "../views/questionCreator/QuestionCreator.vue";
+import QuizStorage from "../views/quizStorage/QuizStorage.vue";
+import Stats from "../views/stats/Stats.vue";
 
 Vue.use(VueRouter);
 

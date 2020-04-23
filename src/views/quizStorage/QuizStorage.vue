@@ -15,7 +15,7 @@
 </template>
 <script>
 import { mapActions } from "vuex";
-import AppQuiz from "./Quiz.vue";
+import AppQuiz from "../../components/quiz/Quiz.vue";
 export default {
   data() {
     return {
