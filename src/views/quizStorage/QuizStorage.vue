@@ -1,43 +1,38 @@
 <template>
   <div>
-    <button @click="loadData">Load Data</button>
-    <button @click="displayData">Display Data</button>
-    <div>
-      <AppQuiz
-        v-for="(question, index) in quiz"
-        :key="index"
-        :question="question.question"
-        :correct="question.correct_answer"
-        :incorrect="question.incorrect_answers"
-      ></AppQuiz>
+    <div v-if="isMenuVisible">
+      <button @click="displayTrivia">Trivia</button>
+      <button @click="displayFlagQuiz">Country-Flag Quiz</button>
+    </div>
+    <div v-if="isCountryQuizVisible">
+      <h3>Country-Flag Quiz</h3>
+      <button @click="displayFlagQuiz">Back</button>
+    </div>
+    <div v-if="isTriviaQuizVisible">
+      <h3>Trivia</h3>
+      <button @click="displayTrivia">Back</button>
     </div>
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
-import AppQuiz from "../../components/quiz/Quiz.vue";
 export default {
   data() {
     return {
-      quiz: []
+      isMenuVisible: true,
+      isCountryQuizVisible: false,
+      isTriviaQuizVisible: false,
     };
   },
-  components: {
-    AppQuiz
-  },
   methods: {
-    ...mapActions({
-      fetchData: "loadData"
-    }),
-    loadData() {
-      this.fetchData();
+    displayTrivia() {
+      this.isTriviaQuizVisible = !this.isTriviaQuizVisible;
+      this.isMenuVisible = !this.isMenuVisible;
     },
-    displayData() {
-      const quiz = this.$store.getters.trivias;
-      this.quiz = quiz.results;
+    displayFlagQuiz() {
+      this.isCountryQuizVisible = !this.isCountryQuizVisible;
+      this.isMenuVisible = !this.isMenuVisible;
     },
-  }
+  },
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>
