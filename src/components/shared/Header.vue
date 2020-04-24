@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand>
-        <router-link to="/" class="navbar-brand">
+        <router-link to="/" class="navbar-brand" exact>
           <a>Quiz App</a>
         </router-link>
       </b-navbar-brand>
@@ -17,7 +17,7 @@
             </router-link>
           </b-nav-item>
           <b-nav-item>
-            <router-link to="/quiz-menu" activeClass="active" router-tag="li">
+            <router-link to="/quiz-menu" activeClass="active" router-tag="li" exact>
               <a class="nav-link">Quiz</a>
             </router-link>
           </b-nav-item>

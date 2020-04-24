@@ -4,9 +4,13 @@
       <button @click="displayTrivia">Trivia</button>
       <button @click="displayFlagQuiz">Country-Flag Quiz</button>
     </div>
+
     <div v-if="isCountryQuizVisible">
       <h3>Country-Flag Quiz</h3>
+
+      <CountryQuiz :key="index" :flagQuiz="flagQuiz"></CountryQuiz>
       <button @click="goBack">Back</button>
+      <button @click="next">Next</button>
     </div>
     <div v-if="isTriviaQuizVisible">
       <h3>Trivia</h3>
@@ -17,19 +21,16 @@
             v-for="(category, index) in triviaCategories[0]"
             :value="category.id"
             :key="index"
-            >{{ category.name }}</option
-          >
+          >{{ category.name }}</option>
         </select>
         <p>{{ selectedCategory }}</p>
         <select v-model="selectedDifficulty">
-          <option value="">Any Difficulty</option>
+          <option value>Any Difficulty</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
-        <p>
-          {{ selectedDifficulty == "" ? "Any Difficulty" : selectedDifficulty }}
-        </p>
+        <p>{{ selectedDifficulty == "" ? "Any Difficulty" : selectedDifficulty }}</p>
         <h5>Number of questions</h5>
         <input type="number" min="1" max="50" v-model.number="questionAmount" />
         <p>{{ questionAmount }}</p>
@@ -50,6 +51,7 @@
 </template>
 <script>
 import AppQuiz from "../../components/quiz/Quiz.vue";
+import CountryQuiz from "../../components/countryquiz/CountryQuiz.vue";
 export default {
   data() {
     return {
@@ -62,19 +64,47 @@ export default {
       questionAmount: 1,
       selectedDifficulty: "",
       trivia: [],
+      countryFlags: [],
+      flagQuiz: {
+        correctFlag: {},
+        incorrectFlags: []
+      }
     };
   },
   components: {
     AppQuiz,
+    CountryQuiz
   },
   methods: {
+    next() {
+      this.generateRandomFlagQuiz(this.countryFlags);
+    },
+    generateRandomNumber(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    },
+    generateRandomFlagQuiz(countryFlags) {
+      let rndCorrectFlagIndex = this.generateRandomNumber(
+        countryFlags.length - 1
+      );
+      // let rndIncorrectFlagIndex = this.generateRandomNumber(
+      //   countryFlags.length - 1
+      // );
+      this.flagQuiz = {
+        correctFlag: countryFlags[rndCorrectFlagIndex],
+        incorrectFlags: [
+          countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name,
+          countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name,
+          countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name
+        ]
+      };
+    },
     displayTrivia() {
       this.$http
         .get("https://opentdb.com/api_category.php")
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((data) => {
+        .then(data => {
           const categories = [];
           for (let key in data) {
             categories.push(data[key]);
@@ -86,8 +116,22 @@ export default {
         });
     },
     displayFlagQuiz() {
-      this.isCountryQuizVisible = true;
-      this.isMenuVisible = false;
+      this.$http
+        .get("https://restcountries.eu/rest/v2/all?fields=name;flag")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          const countryFlags = [];
+          for (let key in data) {
+            countryFlags.push(data[key]);
+          }
+          console.log(countryFlags);
+          this.countryFlags = countryFlags;
+          this.isCountryQuizVisible = true;
+          this.isMenuVisible = false;
+          this.generateRandomFlagQuiz(this.countryFlags);
+        });
     },
     goBack() {
       this.isTriviaQuizVisible = false;
@@ -107,10 +151,10 @@ export default {
             this.selectedDifficulty +
             "&type=multiple"
         )
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((data) => {
+        .then(data => {
           const questions = [];
           for (let key in data) {
             questions.push(data[key]);
@@ -119,8 +163,8 @@ export default {
           this.trivia = questions;
           this.isQuizVisible = true;
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped></style>
