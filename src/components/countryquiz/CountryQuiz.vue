@@ -9,10 +9,12 @@
         style="width: 100px; height: 100px; margin-bottom: 25px;"
       />
 
-      <div class="container-fluid" v-for="(answer, index) in answers" :key="index">
+      <div class="container-fluid">
         <div class="col">
           <button
-            class="btn btn-primary btn-lg col-md-4"
+            v-for="(answer, index) in answers"
+            :key="index"
+            class="btn btn-primary col-md-4"
             style="margin: 10px"
             @click="selectedAnswer(answer)"
           >{{answer}}</button>
