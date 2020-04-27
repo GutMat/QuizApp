@@ -39,10 +39,13 @@ export default {
     }
   },
   methods: {
+    incrementScore() {
+      this.$store.getters.players[this.$store.getters.players.length - 1]
+        .score++;
+    },
     selectedAnswer(value) {
       if (value == this.correct) {
-        \;
-        //increment score of player
+        this.incrementScore();
         alert("Good answer :)");
       } else {
         alert("Bad answer :(");
