@@ -71,12 +71,19 @@ export default {
       }
     };
   },
+  computed: {
+    players: function() {
+      return this.$store.getters.players;
+    }
+  },
   components: {
     AppQuiz,
     CountryQuiz
   },
   methods: {
     next() {
+      console.log(this.players);
+
       this.generateRandomFlagQuiz(this.countryFlags);
     },
     generateRandomNumber(max) {
