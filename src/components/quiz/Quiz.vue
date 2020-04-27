@@ -41,6 +41,8 @@ export default {
   methods: {
     selectedAnswer(value) {
       if (value == this.correct) {
+        \;
+        //increment score of player
         alert("Good answer :)");
       } else {
         alert("Bad answer :(");

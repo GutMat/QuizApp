@@ -41,6 +41,10 @@ export default {
     }
   },
   methods: {
+    incrementScore() {
+      this.$store.getters.players[this.$store.getters.players.length - 1]
+        .score++;
+    },
     shuffle(a) {
       for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -50,6 +54,7 @@ export default {
     },
     selectedAnswer(value) {
       if (value == this.flagQuiz.correctFlag.name) {
+        this.incrementScore();
         alert("Good answer :)");
       } else {
         alert("Bad answer :(");

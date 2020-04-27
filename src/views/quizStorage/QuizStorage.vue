@@ -71,11 +71,6 @@ export default {
       }
     };
   },
-  computed: {
-    players: function() {
-      return this.$store.getters.players;
-    }
-  },
   components: {
     AppQuiz,
     CountryQuiz
@@ -93,9 +88,7 @@ export default {
       let rndCorrectFlagIndex = this.generateRandomNumber(
         countryFlags.length - 1
       );
-      // let rndIncorrectFlagIndex = this.generateRandomNumber(
-      //   countryFlags.length - 1
-      // );
+
       this.flagQuiz = {
         correctFlag: countryFlags[rndCorrectFlagIndex],
         incorrectFlags: [
