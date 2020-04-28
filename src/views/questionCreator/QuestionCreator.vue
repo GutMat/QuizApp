@@ -25,7 +25,7 @@
       <button @click="backToMenu">Back</button>
     </div>
     <div v-if="isQuestionManagementVisible">
-      <p id="quizVuex">{{ quizGetters }}</p>
+      {{ quizGetters.length == [] ? "There is no user question" : null }}
       <div v-for="(ele, index) in quizGetters" :key="index">
         <div v-for="(question, index) in ele" :key="index">
           <h5>Question: {{ question.question }}</h5>
@@ -49,8 +49,8 @@ export default {
   data() {
     return {
       quiz: [],
-      question: "",
       quizGetters: this.$store.getters.quiz,
+      question: "",
       incorrectAnswerFirst: "",
       incorrectAnswerSecond: "",
       incorrectAnswerThird: "",
@@ -103,8 +103,8 @@ export default {
       this.$store.commit("addQuestion", this.quiz);
     },
     removeQuestion(index) {
-      this.$store.commit("removeQuestion", index)
-    }
+      this.$store.commit("removeQuestion", index);
+    },
   },
 };
 </script>

@@ -68,8 +68,8 @@
           :incorrect="question.incorrect"
         ></AppQuiz>
       </div>
+      {{ ownerQuiz.length == [] ? "There is no user question" : null }}
       <button @click="goBack">Back</button>
-      {{ ownerQuiz == [] ? "There is no user question" : null }}
     </div>
   </div>
 </template>
