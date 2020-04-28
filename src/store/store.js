@@ -7,16 +7,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     players: [],
+    quiz: []
   },
-  mutations: {
-    ...mutations,
-  },
-  actions: {
-    ...actions,
-  },
+  mutations,
+  actions,
   getters: {
     players: (state) => {
       return state.players;
     },
+    quiz: (state) => {
+      return state.quiz;
+    }
   },
 });
