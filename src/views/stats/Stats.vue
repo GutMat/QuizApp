@@ -14,7 +14,7 @@
 export default {
   data() {
     return {
-      players: this.$store.getters.players
+      players: this.$store.getters.players.sort((a, b) => b.score - a.score)
     };
   }
 };
