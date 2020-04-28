@@ -68,7 +68,8 @@
           :incorrect="question.incorrect"
         ></AppQuiz>
       </div>
-      {{ ownerQuiz }}
+      <button @click="goBack">Back</button>
+      {{ ownerQuiz == [] ? "There is no user question" : null }}
     </div>
   </div>
 </template>
@@ -167,6 +168,7 @@ export default {
     goBack() {
       this.isTriviaQuizVisible = false;
       this.isCountryQuizVisible = false;
+      this.isOwnerQuizVisible = false;
       this.isMenuVisible = true;
       this.selectedCategory = "";
       this.trivia = [];
