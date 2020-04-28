@@ -26,6 +26,20 @@
     </div>
     <div v-if="isQuestionManagementVisible">
       <p id="quizVuex">{{ quizGetters }}</p>
+      <div v-for="(ele, index) in quizGetters" :key="index">
+        <div v-for="(question, index) in ele" :key="index">
+          <h5>Question: {{ question.question }}</h5>
+          <h6>
+            Correct:
+          </h6>
+          <span>{{ question.correct }}</span>
+          <h6>Incorrect:</h6>
+          <div v-for="(answer, index) in question.incorrect" :key="index">
+            <span>{{ answer }}</span>
+          </div>
+        </div>
+        <button @click="removeQuestion(index)">Remove question</button>
+      </div>
       <button @click="backToMenu">Back</button>
     </div>
   </div>
@@ -88,6 +102,9 @@ export default {
       this.answers.incorrectAnswers = [];
       this.$store.commit("addQuestion", this.quiz);
     },
+    removeQuestion(index) {
+      this.$store.commit("removeQuestion", index)
+    }
   },
 };
 </script>
