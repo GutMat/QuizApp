@@ -2,6 +2,14 @@ export const addPlayer = (state, payload) => {
   state.players.push(payload);
 };
 
+export const selectPlayer = (state, payload) => {
+  state.selectedPlayer = payload
+};
+
+export const changeScore = (state, payload) => {
+  payload.score++;
+};
+
 export const addQuestion = (state, payload) => {
   state.quiz.push(payload);
 }

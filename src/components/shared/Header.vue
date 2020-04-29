@@ -12,12 +12,22 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item>
+            <router-link to="/quiz-menu" router-tag="li">
+              <a class="nav-link">Present player | {{ presentPlayer.name }}</a>
+            </router-link>
+          </b-nav-item>
+          <b-nav-item>
             <router-link to="/" activeClass="active" router-tag="li" exact>
               <a class="nav-link">Home</a>
             </router-link>
           </b-nav-item>
           <b-nav-item>
-            <router-link to="/quiz-menu" activeClass="active" router-tag="li" exact>
+            <router-link
+              to="/quiz-menu"
+              activeClass="active"
+              router-tag="li"
+              exact
+            >
               <a class="nav-link">Quiz</a>
             </router-link>
           </b-nav-item>
@@ -47,7 +57,12 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  computed: {
+    presentPlayer() {
+      return this.$store.getters.presentPlayer;
+    },
+  },
+};
 </script>
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,6 +1,22 @@
 <template>
   <div>
     <div v-if="isMenuVisible">
+      <button @click="isPlayerListVisible = !isPlayerListVisible">
+        {{ isPlayerListVisible ? "Hide player list" : "Show player list" }}
+      </button>
+      <div v-if="isPlayerListVisible">
+        <select
+          v-model="selectedPlayer"
+          @change="updatePresentPlayer(selectedPlayer)"
+        >
+          <option
+            :value="player"
+            v-for="(player, index) in players"
+            :key="index"
+            >{{ player.name }}</option
+          >
+        </select>
+      </div>
       <button @click="displayTrivia">Trivia</button>
       <button @click="displayFlagQuiz">Country-Flag Quiz</button>
       <button @click="displayOwnerQuiz">User Quiz</button>
@@ -9,7 +25,7 @@
     <div v-if="isCountryQuizVisible">
       <h3>Country-Flag Quiz</h3>
 
-      <CountryQuiz :key="index" :flagQuiz="flagQuiz"></CountryQuiz>
+      <CountryQuiz :flagQuiz="flagQuiz"></CountryQuiz>
       <button @click="goBack">Back</button>
       <button @click="next">Next</button>
     </div>
@@ -84,6 +100,7 @@ export default {
       isTriviaQuizVisible: false,
       isOwnerQuizVisible: false,
       isQuizVisible: false,
+      isPlayerListVisible: false,
       triviaCategories: [],
       selectedCategory: "",
       questionAmount: 1,
@@ -95,6 +112,8 @@ export default {
         correctFlag: {},
         incorrectFlags: [],
       },
+      players: this.$store.getters.players,
+      selectedPlayer: "",
     };
   },
   components: {
@@ -102,9 +121,11 @@ export default {
     CountryQuiz,
   },
   methods: {
+    updatePresentPlayer(player) {
+      this.$store.commit("selectPlayer", player);
+      console.log(player);
+    },
     next() {
-      console.log(this.players);
-
       this.generateRandomFlagQuiz(this.countryFlags);
     },
     generateRandomNumber(max) {

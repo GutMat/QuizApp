@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h3 class="card-title text-center">{{question}}</h3>
+    <h3 class="card-title text-center">{{ question }}</h3>
     <div class="card-body text-center">
       <div class="container-fluid">
         <div class="col">
@@ -10,7 +10,9 @@
             class="btn btn-primary col-md-4"
             style="margin: 10px"
             @click="selectedAnswer(answer)"
-          >{{answer}}</button>
+          >
+            {{ answer }}
+          </button>
         </div>
       </div>
     </div>
@@ -24,7 +26,7 @@ export default {
   props: {
     correct: String,
     incorrect: Array,
-    question: String
+    question: String,
   },
   computed: {
     answers() {
@@ -36,12 +38,12 @@ export default {
         answers[j] = temp;
       }
       return answers;
-    }
+    },
   },
   methods: {
     incrementScore() {
-      this.$store.getters.players[this.$store.getters.players.length - 1]
-        .score++;
+      let player = this.$store.getters.presentPlayer;
+      this.$store.commit("changeScore", player);
     },
     selectedAnswer(value) {
       if (value == this.correct) {
@@ -50,7 +52,7 @@ export default {
       } else {
         alert("Bad answer :(");
       }
-    }
-  }
+    },
+  },
 };
 </script>
