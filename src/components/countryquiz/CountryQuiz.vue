@@ -59,14 +59,14 @@ export default {
 
         setTimeout(() => {
           return this.$emit("next");
-        }, 1500);
+        }, 1000);
         this.incrementScore();
       } else {
         alert("Bad answer :(");
         setTimeout(() => {
           console.log("next");
           return this.$emit("next");
-        }, 1500);
+        }, 1000);
       }
     }
   }
