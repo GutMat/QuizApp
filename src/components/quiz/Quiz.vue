@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h3 class="card-title text-center">{{ question }}</h3>
+    <h3 class="card-title text-center">{{ questionDecoded }}</h3>
     <div class="card-body text-center">
       <div class="container-fluid">
         <div class="col">
@@ -19,6 +19,11 @@
   </div>
 </template>
 <script>
+function decodeHtml(html) {
+  var txt = document.createElement("textarea");
+  txt.innerHTML = html;
+  return txt.value;
+}
 export default {
   data() {
     return {};
@@ -38,6 +43,9 @@ export default {
         answers[j] = temp;
       }
       return answers;
+    },
+    questionDecoded() {
+      return decodeHtml(this.question);
     },
   },
   methods: {
