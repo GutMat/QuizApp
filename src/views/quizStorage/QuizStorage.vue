@@ -1,20 +1,12 @@
 <template>
   <div>
     <div v-if="isMenuVisible">
-      <button @click="isPlayerListVisible = !isPlayerListVisible">
-        {{ isPlayerListVisible ? "Hide player list" : "Show player list" }}
-      </button>
+      <button
+        @click="isPlayerListVisible = !isPlayerListVisible"
+      >{{ isPlayerListVisible ? "Hide player list" : "Show player list" }}</button>
       <div v-if="isPlayerListVisible">
-        <select
-          v-model="selectedPlayer"
-          @change="updatePresentPlayer(selectedPlayer)"
-        >
-          <option
-            :value="player"
-            v-for="(player, index) in players"
-            :key="index"
-            >{{ player.name }}</option
-          >
+        <select v-model="selectedPlayer" @change="updatePresentPlayer(selectedPlayer)">
+          <option :value="player" v-for="(player, index) in players" :key="index">{{ player.name }}</option>
         </select>
       </div>
       <button @click="displayTrivia">Trivia</button>
@@ -25,7 +17,7 @@
     <div v-if="isCountryQuizVisible">
       <h3>Country-Flag Quiz</h3>
 
-      <CountryQuiz :flagQuiz="flagQuiz"></CountryQuiz>
+      <CountryQuiz :flagQuiz="flagQuiz" @next="next"></CountryQuiz>
       <button @click="goBack">Back</button>
       <button @click="next">Next</button>
     </div>
@@ -40,8 +32,7 @@
             v-for="(category, index) in triviaCategories[0]"
             :value="category.id"
             :key="index"
-            >{{ category.name }}</option
-          >
+          >{{ category.name }}</option>
         </select>
         <p>{{ selectedCategory }}</p>
         <select v-model="selectedDifficulty">
@@ -50,9 +41,7 @@
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
-        <p>
-          {{ selectedDifficulty == "" ? "Any Difficulty" : selectedDifficulty }}
-        </p>
+        <p>{{ selectedDifficulty == "" ? "Any Difficulty" : selectedDifficulty }}</p>
         <h5>Number of questions</h5>
         <input type="number" min="1" max="50" v-model.number="questionAmount" />
         <p>{{ questionAmount }}</p>
@@ -110,15 +99,15 @@ export default {
       countryFlags: [],
       flagQuiz: {
         correctFlag: {},
-        incorrectFlags: [],
+        incorrectFlags: []
       },
       players: this.$store.getters.players,
-      selectedPlayer: "",
+      selectedPlayer: ""
     };
   },
   components: {
     AppQuiz,
-    CountryQuiz,
+    CountryQuiz
   },
   methods: {
     updatePresentPlayer(player) {
@@ -141,17 +130,17 @@ export default {
         incorrectFlags: [
           countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name,
           countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name,
-          countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name,
-        ],
+          countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name
+        ]
       };
     },
     displayTrivia() {
       this.$http
         .get("https://opentdb.com/api_category.php")
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((data) => {
+        .then(data => {
           const categories = [];
           for (let key in data) {
             categories.push(data[key]);
@@ -165,10 +154,10 @@ export default {
     displayFlagQuiz() {
       this.$http
         .get("https://restcountries.eu/rest/v2/all?fields=name;flag")
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((data) => {
+        .then(data => {
           const countryFlags = [];
           for (let key in data) {
             countryFlags.push(data[key]);
@@ -205,10 +194,10 @@ export default {
             this.selectedDifficulty +
             "&type=multiple"
         )
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((data) => {
+        .then(data => {
           const questions = [];
           for (let key in data) {
             questions.push(data[key]);
@@ -217,8 +206,8 @@ export default {
           this.trivia = questions;
           this.isQuizVisible = true;
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped></style>

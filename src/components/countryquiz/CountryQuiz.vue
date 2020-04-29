@@ -17,9 +17,7 @@
             class="btn btn-primary col-md-4"
             style="margin: 10px"
             @click="selectedAnswer(answer)"
-          >
-            {{ answer }}
-          </button>
+          >{{ answer }}</button>
         </div>
       </div>
     </div>
@@ -32,6 +30,7 @@ export default {
   },
   props: {
     flagQuiz: Object,
+    next: Function
   },
   computed: {
     answers() {
@@ -40,7 +39,7 @@ export default {
       );
       answers = this.shuffle(answers);
       return answers;
-    },
+    }
   },
   methods: {
     incrementScore() {
@@ -56,12 +55,20 @@ export default {
     },
     selectedAnswer(value) {
       if (value == this.flagQuiz.correctFlag.name) {
-        this.incrementScore();
         alert("Good answer :)");
+
+        setTimeout(() => {
+          return this.$emit("next");
+        }, 1500);
+        this.incrementScore();
       } else {
         alert("Bad answer :(");
+        setTimeout(() => {
+          console.log("next");
+          return this.$emit("next");
+        }, 1500);
       }
-    },
-  },
+    }
+  }
 };
 </script>
