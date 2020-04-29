@@ -6,6 +6,10 @@ export const selectPlayer = (state, payload) => {
   state.selectedPlayer = payload
 };
 
+export const removePlayer = (state, payload) => {
+  state.players.splice(payload, 1)
+}
+
 export const changeScore = (state, payload) => {
   payload.score++;
 };
