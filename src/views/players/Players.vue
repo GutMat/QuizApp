@@ -33,10 +33,6 @@ export default {
       this.$store.dispatch("addPlayer", player);
       this.$store.commit("selectPlayer", player);
       return player;
-<<<<<<< HEAD
-    }
-  }
-=======
     },
     removePlayer(index) {
       this.$store.commit("removePlayer", index);
@@ -44,8 +40,7 @@ export default {
     selectPlayer(player) {
       this.$store.commit("selectPlayer", player);
     }
-  },
->>>>>>> 25a82c25c642478d76750ab921688526fb1d3923
+  }
 };
 </script>
 <style scoped></style>
