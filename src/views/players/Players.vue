@@ -3,7 +3,10 @@
     <input type="text" v-model="playerName" />
     <button @click="createPlayer">Create Player</button>
     <div>
-      <p v-for="(player, index) in players" :key="index">{{ player }}</p>
+      <p
+        v-for="(player, index) in players"
+        :key="index"
+      >player {{ player.name }} with score: {{player.score}}</p>
     </div>
   </div>
 </template>
@@ -13,7 +16,7 @@ export default {
   data() {
     return {
       playerName: "",
-      players: this.$store.getters.players,
+      players: this.$store.getters.players
     };
   },
   // computed: {
@@ -28,8 +31,8 @@ export default {
       this.$store.dispatch("addPlayer", player);
       this.$store.commit("selectPlayer", player);
       return player;
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped></style>
