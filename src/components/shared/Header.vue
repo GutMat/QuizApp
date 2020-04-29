@@ -12,9 +12,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item>
-            <router-link to="/quiz-menu" router-tag="li">
-              <a class="nav-link">Present player | {{ presentPlayer.name }}</a>
-            </router-link>
+            <span class="navbar-text" style="cursor: default">Present player: {{ presentPlayer.name }} | Score: {{presentPlayer.score}}</span>
           </b-nav-item>
           <b-nav-item>
             <router-link to="/" activeClass="active" router-tag="li" exact>

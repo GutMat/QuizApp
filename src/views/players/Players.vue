@@ -3,7 +3,12 @@
     <input type="text" v-model="playerName" />
     <button @click="createPlayer">Create Player</button>
     <div>
-      <p v-for="(player, index) in players" :key="index">{{ player }}</p>
+      <h3>List of players</h3>
+      <div v-for="(player, index) in players" :key="index">
+        <span>{{ player.name }}</span>
+        <button @click="selectPlayer(player)">Select</button>
+        <button @click="removePlayer(index)">Remove</button>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +34,12 @@ export default {
       this.$store.commit("selectPlayer", player);
       return player;
     },
+    removePlayer(index) {
+      this.$store.commit("removePlayer", index);
+    },
+    selectPlayer(player) {
+      this.$store.commit("selectPlayer", player);
+    }
   },
 };
 </script>
