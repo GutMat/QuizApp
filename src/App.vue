@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <AppHeader></AppHeader>
-    <div class="container-fluid">
+    <div class="container-full-width">
       <router-view />
     </div>
   </div>
@@ -10,8 +10,8 @@
 import AppHeader from "./components/shared/Header.vue";
 export default {
   components: {
-    AppHeader,
-  },
+    AppHeader
+  }
 };
 </script>
 <style></style>

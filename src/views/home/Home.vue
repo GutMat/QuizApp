@@ -1,11 +1,19 @@
 <template>
-  <div>
-    <input type="text" v-model="playerName" />
-    <button @click="createPlayer">Create Player</button>
-    <button @click="navigateToQuiz">Quiz</button>
-    <button @click="navigateToPlayers">Players</button>
-    <button @click="navigateToStats">Stats</button>
-    <button @click="navigateToCreator">Quiz creator</button>
+  <div class="jumbotron d-flex align-items-center min-vh-100 justify-content-center">
+    <div class="col-6 input-group">
+      <input
+        type="text"
+        v-model="playerName"
+        class="form-control form-control-lg"
+        placeholder="Type in player name"
+        aria-label="Type in player name"
+        aria-describedby="basic-addon2"
+      />
+      <div class="input-group-append">
+        <button @click="createPlayer" class="btn btn-lg btn-outline-secondary">Create Player</button>
+        <button @click="playAnonymously" class="btn btn-lg btn-outline-secondary">Play Anonymously</button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -19,11 +27,15 @@ export default {
   },
 
   methods: {
+    playAnonymously() {
+      this.navigateToQuiz();
+    },
     createPlayer() {
       let player = new Player(this.playerName);
       this.$store.dispatch("addPlayer", player);
       this.$store.commit("selectPlayer", player);
       this.playerName = "";
+      this.navigateToQuiz();
       return player;
     },
     navigateToQuiz() {

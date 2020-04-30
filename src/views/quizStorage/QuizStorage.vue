@@ -1,62 +1,69 @@
 <template>
-  <div>
-    <div v-if="isMenuVisible">
-      <button @click="isPlayerListVisible = !isPlayerListVisible">
-        {{ isPlayerListVisible ? "Hide player list" : "Show player list" }}
-      </button>
-      <div v-if="isPlayerListVisible">
+  <div class="jumbotron d-flex align-items-center min-vh-100 justify-content-center">
+    <div v-if="isMenuVisible" class="btn-group">
+      <button
+        class="btn btn-lg btn-outline-secondary"
+        @click="isPlayerListVisible = !isPlayerListVisible"
+      >{{ isPlayerListVisible ? "Hide player list" : "Show player list" }}</button>
+      <div v-if="isPlayerListVisible" class="input-group-lg">
         <select
           v-model="selectedPlayer"
           @change="updatePresentPlayer(selectedPlayer)"
+          class="custom-select-lg"
         >
-          <option
-            :value="player"
-            v-for="(player, index) in players"
-            :key="index"
-            >{{ player.name }}</option
-          >
+          <option :value="player" v-for="(player, index) in players" :key="index">{{ player.name }}</option>
         </select>
       </div>
-      <button @click="displayTrivia">Trivia</button>
-      <button @click="displayFlagQuiz">Country-Flag Quiz</button>
-      <button @click="displayOwnerQuiz">User Quiz</button>
+      <button @click="displayTrivia" class="btn btn-lg btn-outline-secondary">Trivia</button>
+      <button @click="displayFlagQuiz" class="btn btn-lg btn-outline-secondary">Country-Flag Quiz</button>
+      <button @click="displayOwnerQuiz" class="btn btn-lg btn-outline-secondary">User Quiz</button>
     </div>
 
     <div v-if="isCountryQuizVisible">
       <h3>Country-Flag Quiz</h3>
 
       <CountryQuiz :flagQuiz="flagQuiz" @next="next"></CountryQuiz>
-      <button @click="goBack">Back</button>
-      <button @click="next">Next</button>
+      <button @click="goBack" class="btn btn-sm btn-secondary">Back</button>
+      <button @click="next" class="btn btn-sm btn-secondary">Next</button>
     </div>
 
     <div v-if="isTriviaQuizVisible">
       <h3>Trivia</h3>
       <h5>Choose category</h5>
 
-      <div v-if="isQuizFormVisible">
-        <select v-model="selectedCategory">
+      <div v-if="isQuizFormVisible" class="input-group-lg">
+        <select v-model="selectedCategory" class="custom-select rounded">
           <option
             v-for="(category, index) in triviaCategories[0]"
             :value="category.id"
             :key="index"
-            >{{ category.name }}</option
-          >
+          >{{ category.name }}</option>
         </select>
-        <p>{{ selectedCategory }}</p>
-        <select v-model="selectedDifficulty">
-          <option value>Any Difficulty</option>
+        <p>There is {{ selectedCategory }} questions of this category</p>
+        <h5>Difficulty</h5>
+        <select v-model="selectedDifficulty" class="custom-select rounded">
+          <option selected="selected" value>Any Difficulty</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
-        <p>
-          {{ selectedDifficulty == "" ? "Any Difficulty" : selectedDifficulty }}
-        </p>
         <h5>Number of questions</h5>
-        <input type="number" min="1" max="50" v-model.number="questionAmount" />
+        <input
+          type="number"
+          min="1"
+          max="50"
+          v-model.number="questionAmount"
+          class="form-control"
+          placeholder="Type in number of questions"
+          aria-label="Type in number of questions"
+          aria-describedby="basic-addon2"
+        />
         <p>{{ questionAmount }}</p>
-        <button @click="displayQuiz">Display quiz</button>
+        <div class="btn-group">
+          <button @click="goBack" class="btn btn-sm btn-secondary btn">Go Back</button>
+
+          <button @click="displayQuiz" class="btn btn-sm btn-secondary">Display quiz</button>
+        </div>
       </div>
 
       <div v-if="isQuizVisible">
@@ -68,8 +75,6 @@
           @incrementIndex="nextQuestion"
         ></AppQuiz>
       </div>
-
-      <button @click="goBack">Back</button>
     </div>
 
     <div v-if="isOwnerQuizVisible">
@@ -109,16 +114,16 @@ export default {
       countryFlags: [],
       flagQuiz: {
         correctFlag: {},
-        incorrectFlags: [],
+        incorrectFlags: []
       },
       players: this.$store.getters.players,
       selectedPlayer: "",
-      currentIndex: 0,
+      currentIndex: 0
     };
   },
   components: {
     AppQuiz,
-    CountryQuiz,
+    CountryQuiz
   },
   methods: {
     updatePresentPlayer(player) {
@@ -134,7 +139,7 @@ export default {
         console.log("This is end :)");
         this.isQuizVisible = false;
         this.isQuizFormVisible = true;
-        this.questionAmount = 1
+        this.questionAmount = 1;
       }
     },
     generateRandomNumber(max) {
@@ -150,17 +155,17 @@ export default {
         incorrectFlags: [
           countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name,
           countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name,
-          countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name,
-        ],
+          countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name
+        ]
       };
     },
     displayTrivia() {
       this.$http
         .get("https://opentdb.com/api_category.php")
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((data) => {
+        .then(data => {
           const categories = [];
           for (let key in data) {
             categories.push(data[key]);
@@ -175,10 +180,10 @@ export default {
     displayFlagQuiz() {
       this.$http
         .get("https://restcountries.eu/rest/v2/all?fields=name;flag")
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((data) => {
+        .then(data => {
           const countryFlags = [];
           for (let key in data) {
             countryFlags.push(data[key]);
@@ -215,10 +220,10 @@ export default {
             this.selectedDifficulty +
             "&type=multiple"
         )
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((data) => {
+        .then(data => {
           const questions = [];
           for (let key in data) {
             questions.push(data[key]);
@@ -229,8 +234,8 @@ export default {
           this.isQuizFormVisible = false;
           this.currentIndex = 0;
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped></style>

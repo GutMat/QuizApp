@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <input type="text" v-model="playerName" />
-    <button @click="createPlayer">Create Player</button>
-    <div>
-      <h3>List of players</h3>
-      <div v-for="(player, index) in players" :key="index">
-        <span>{{ player.name }}</span>
-        <button @click="selectPlayer(player)">Select</button>
-        <button @click="removePlayer(index)">Remove</button>
+  <div class="jumbotron min-vh-100">
+    <h1>List of players</h1>
+    <div v-for="(player, index) in players" :key="index" class="container-fluid">
+      <div class="row" style="margin-bottom: 5px;">
+        <div class="btn-group">
+          <span class="input-group-text" style="width: 450px;" disabled="disabled">{{ player.name }}</span>
+          <button @click="selectPlayer(player)" class="btn btn-info">Select</button>
+          <button @click="removePlayer(index)" class="btn btn-danger">Remove</button>
+        </div>
       </div>
     </div>
   </div>
