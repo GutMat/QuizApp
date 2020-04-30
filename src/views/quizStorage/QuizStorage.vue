@@ -78,15 +78,14 @@
     </div>
 
     <div v-if="isOwnerQuizVisible">
-      <div v-for="(ele, index) in ownerQuiz" :key="index">
-        <AppQuiz
-          v-for="(question, index) in ele"
-          :key="index"
-          :question="question.question"
-          :correct="question.correct"
-          :incorrect="question.incorrect"
-        ></AppQuiz>
-      </div>
+      {{ ownerQuiz }}
+      <AppQuiz
+        v-if="questionsAvailability"
+        :question="ownerQuiz[currentIndex][0].question"
+        :correct="ownerQuiz[currentIndex][0].correct"
+        :incorrect="ownerQuiz[currentIndex][0].incorrect"
+        @incrementIndex="nextOwnerQuestion"
+      ></AppQuiz>
       {{ ownerQuiz.length == [] ? "There is no user question" : null }}
       <button @click="goBack">Back</button>
     </div>
@@ -105,6 +104,7 @@ export default {
       isQuizVisible: false,
       isPlayerListVisible: false,
       isQuizFormVisible: false,
+      questionsAvailability: false,
       triviaCategories: [],
       selectedCategory: "",
       questionAmount: 1,
@@ -142,6 +142,16 @@ export default {
         this.questionAmount = 1;
       }
     },
+    nextOwnerQuestion() {
+      if (this.currentIndex < this.ownerQuiz.length - 1) this.currentIndex++;
+      else {
+        console.log("This is end :)");
+        this.isOwnerQuizVisible = false;
+        this.questionsAvailability = false;
+        this.isMenuVisible = true;
+      }
+    },
+
     generateRandomNumber(max) {
       return Math.floor(Math.random() * Math.floor(max));
     },
@@ -198,8 +208,12 @@ export default {
 
     displayOwnerQuiz() {
       this.ownerQuiz = this.$store.getters.quiz;
+      if (this.ownerQuiz.length > 0) {
+        this.questionsAvailability = true;
+      }
       this.isOwnerQuizVisible = true;
       this.isMenuVisible = false;
+      this.currentIndex = 0;
     },
     goBack() {
       this.isTriviaQuizVisible = false;
