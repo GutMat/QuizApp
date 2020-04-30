@@ -34,7 +34,7 @@
       <h3>Trivia</h3>
       <h5>Choose category</h5>
 
-      <div>
+      <div v-if="isQuizFormVisible">
         <select v-model="selectedCategory">
           <option
             v-for="(category, index) in triviaCategories[0]"
@@ -56,9 +56,8 @@
         <h5>Number of questions</h5>
         <input type="number" min="1" max="50" v-model.number="questionAmount" />
         <p>{{ questionAmount }}</p>
+        <button @click="displayQuiz">Display quiz</button>
       </div>
-
-      <button @click="displayQuiz">Display quiz</button>
 
       <div v-if="isQuizVisible">
         {{ trivia }}
@@ -100,6 +99,7 @@ export default {
       isOwnerQuizVisible: false,
       isQuizVisible: false,
       isPlayerListVisible: false,
+      isQuizFormVisible: false,
       triviaCategories: [],
       selectedCategory: "",
       questionAmount: 1,
@@ -133,6 +133,8 @@ export default {
       else {
         console.log("This is end :)");
         this.isQuizVisible = false;
+        this.isQuizFormVisible = true;
+        this.questionAmount = 1
       }
     },
     generateRandomNumber(max) {
@@ -167,6 +169,7 @@ export default {
           this.triviaCategories = categories;
           this.isTriviaQuizVisible = true;
           this.isMenuVisible = false;
+          this.isQuizFormVisible = true;
         });
     },
     displayFlagQuiz() {
@@ -223,6 +226,7 @@ export default {
           console.log(questions);
           this.trivia = questions;
           this.isQuizVisible = true;
+          this.isQuizFormVisible = false;
           this.currentIndex = 0;
         });
     },
