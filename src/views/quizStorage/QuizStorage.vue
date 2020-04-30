@@ -1,12 +1,20 @@
 <template>
   <div>
     <div v-if="isMenuVisible">
-      <button
-        @click="isPlayerListVisible = !isPlayerListVisible"
-      >{{ isPlayerListVisible ? "Hide player list" : "Show player list" }}</button>
+      <button @click="isPlayerListVisible = !isPlayerListVisible">
+        {{ isPlayerListVisible ? "Hide player list" : "Show player list" }}
+      </button>
       <div v-if="isPlayerListVisible">
-        <select v-model="selectedPlayer" @change="updatePresentPlayer(selectedPlayer)">
-          <option :value="player" v-for="(player, index) in players" :key="index">{{ player.name }}</option>
+        <select
+          v-model="selectedPlayer"
+          @change="updatePresentPlayer(selectedPlayer)"
+        >
+          <option
+            :value="player"
+            v-for="(player, index) in players"
+            :key="index"
+            >{{ player.name }}</option
+          >
         </select>
       </div>
       <button @click="displayTrivia">Trivia</button>
@@ -32,7 +40,8 @@
             v-for="(category, index) in triviaCategories[0]"
             :value="category.id"
             :key="index"
-          >{{ category.name }}</option>
+            >{{ category.name }}</option
+          >
         </select>
         <p>{{ selectedCategory }}</p>
         <select v-model="selectedDifficulty">
@@ -41,7 +50,9 @@
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
-        <p>{{ selectedDifficulty == "" ? "Any Difficulty" : selectedDifficulty }}</p>
+        <p>
+          {{ selectedDifficulty == "" ? "Any Difficulty" : selectedDifficulty }}
+        </p>
         <h5>Number of questions</h5>
         <input type="number" min="1" max="50" v-model.number="questionAmount" />
         <p>{{ questionAmount }}</p>
@@ -52,11 +63,10 @@
       <div v-if="isQuizVisible">
         {{ trivia }}
         <AppQuiz
-          v-for="(question, index) in trivia[1]"
-          :key="index"
-          :question="question.question"
-          :correct="question.correct_answer"
-          :incorrect="question.incorrect_answers"
+          :question="trivia[1][currentIndex].question"
+          :correct="trivia[1][currentIndex].correct_answer"
+          :incorrect="trivia[1][currentIndex].incorrect_answers"
+          @incrementIndex="nextQuestion"
         ></AppQuiz>
       </div>
 
@@ -99,15 +109,16 @@ export default {
       countryFlags: [],
       flagQuiz: {
         correctFlag: {},
-        incorrectFlags: []
+        incorrectFlags: [],
       },
       players: this.$store.getters.players,
-      selectedPlayer: ""
+      selectedPlayer: "",
+      currentIndex: 0,
     };
   },
   components: {
     AppQuiz,
-    CountryQuiz
+    CountryQuiz,
   },
   methods: {
     updatePresentPlayer(player) {
@@ -116,6 +127,13 @@ export default {
     },
     next() {
       this.generateRandomFlagQuiz(this.countryFlags);
+    },
+    nextQuestion() {
+      if (this.currentIndex < this.questionAmount - 1) this.currentIndex++;
+      else {
+        console.log("This is end :)")
+        return
+      }
     },
     generateRandomNumber(max) {
       return Math.floor(Math.random() * Math.floor(max));
@@ -130,17 +148,17 @@ export default {
         incorrectFlags: [
           countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name,
           countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name,
-          countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name
-        ]
+          countryFlags[this.generateRandomNumber(countryFlags.length - 1)].name,
+        ],
       };
     },
     displayTrivia() {
       this.$http
         .get("https://opentdb.com/api_category.php")
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           const categories = [];
           for (let key in data) {
             categories.push(data[key]);
@@ -154,10 +172,10 @@ export default {
     displayFlagQuiz() {
       this.$http
         .get("https://restcountries.eu/rest/v2/all?fields=name;flag")
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           const countryFlags = [];
           for (let key in data) {
             countryFlags.push(data[key]);
@@ -194,10 +212,10 @@ export default {
             this.selectedDifficulty +
             "&type=multiple"
         )
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           const questions = [];
           for (let key in data) {
             questions.push(data[key]);
@@ -205,9 +223,10 @@ export default {
           console.log(questions);
           this.trivia = questions;
           this.isQuizVisible = true;
+          this.currentIndex = 0;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped></style>

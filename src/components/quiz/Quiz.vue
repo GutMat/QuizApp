@@ -52,13 +52,17 @@ export default {
     incrementScore() {
       let player = this.$store.getters.presentPlayer;
       this.$store.commit("changeScore", player);
+      this.$store.commit("changeClicks", player);
     },
     selectedAnswer(value) {
+      this.$emit("incrementIndex");
       if (value == this.correct) {
         this.incrementScore();
         alert("Good answer :)");
       } else {
         alert("Bad answer :(");
+        let player = this.$store.getters.presentPlayer;
+        this.$store.commit("changeClicks", player);
       }
     },
   },
