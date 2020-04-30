@@ -131,8 +131,8 @@ export default {
     nextQuestion() {
       if (this.currentIndex < this.questionAmount - 1) this.currentIndex++;
       else {
-        console.log("This is end :)")
-        return
+        console.log("This is end :)");
+        this.isQuizVisible = false;
       }
     },
     generateRandomNumber(max) {
