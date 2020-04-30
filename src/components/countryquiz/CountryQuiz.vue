@@ -17,7 +17,9 @@
             class="btn btn-primary col-md-4"
             style="margin: 10px"
             @click="selectedAnswer(answer)"
-          >{{ answer }}</button>
+          >
+            {{ answer }}
+          </button>
         </div>
       </div>
     </div>
@@ -30,7 +32,7 @@ export default {
   },
   props: {
     flagQuiz: Object,
-    next: Function
+    next: Function,
   },
   computed: {
     answers() {
@@ -39,12 +41,13 @@ export default {
       );
       answers = this.shuffle(answers);
       return answers;
-    }
+    },
   },
   methods: {
     incrementScore() {
       let player = this.$store.getters.presentPlayer;
       this.$store.commit("changeScore", player);
+      this.$store.commit("changeClicks", player);
     },
     shuffle(a) {
       for (let i = a.length - 1; i > 0; i--) {
@@ -63,12 +66,14 @@ export default {
         this.incrementScore();
       } else {
         alert("Bad answer :(");
+        let player = this.$store.getters.presentPlayer;
+        this.$store.commit("changeClicks", player);
         setTimeout(() => {
           console.log("next");
           return this.$emit("next");
         }, 500);
       }
-    }
-  }
+    },
+  },
 };
 </script>

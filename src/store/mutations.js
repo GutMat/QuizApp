@@ -14,6 +14,10 @@ export const changeScore = (state, payload) => {
   payload.score++;
 };
 
+export const changeClicks = (state, payload) => {
+  payload.clicks++;
+};
+
 export const addQuestion = (state, payload) => {
   state.quiz.push(payload);
 }

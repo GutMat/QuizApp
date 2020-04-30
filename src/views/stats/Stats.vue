@@ -6,7 +6,14 @@
         class="list-group-item"
         v-for="(player, index) in players"
         :key="index"
-      >{{player.score}} | {{player.name}}</li>
+      >
+        {{ player.score }}/{{ player.clicks }} ({{
+          player.clicks > 0
+            ? ((player.score / player.clicks) * 100).toFixed(2) + "%"
+            : "No stats yet"
+        }}
+        ) | {{ player.name }}
+      </li>
     </ul>
   </div>
 </template>
@@ -14,10 +21,9 @@
 export default {
   data() {
     return {
-      players: this.$store.getters.players.sort((a, b) => b.score - a.score)
+      players: this.$store.getters.players.sort((a, b) => b.score - a.score),
     };
-  }
+  },
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>
