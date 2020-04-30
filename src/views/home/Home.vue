@@ -14,9 +14,10 @@ import Player from "../../components/model/Player.js";
 export default {
   data() {
     return {
-      playerName: "",
+      playerName: ""
     };
   },
+
   methods: {
     createPlayer() {
       let player = new Player(this.playerName);
@@ -36,8 +37,8 @@ export default {
     },
     navigateToCreator() {
       return this.$router.push("/question-creator");
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped></style>
