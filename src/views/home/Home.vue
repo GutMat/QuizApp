@@ -20,7 +20,7 @@ export default {
 
   methods: {
     createPlayer() {
-      let player = new Player(this.playerName);
+      let player = new Player(this.playerNames);
       this.$store.dispatch("addPlayer", player);
       this.$store.commit("selectPlayer", player);
       this.playerName = "";
