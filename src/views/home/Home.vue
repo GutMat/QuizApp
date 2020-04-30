@@ -14,13 +14,13 @@ import Player from "../../components/model/Player.js";
 export default {
   data() {
     return {
-      playerName: "",
+      playerName: ""
     };
   },
 
   methods: {
     createPlayer() {
-      let player = new Player(this.playerNames);
+      let player = new Player(this.playerName);
       this.$store.dispatch("addPlayer", player);
       this.$store.commit("selectPlayer", player);
       this.playerName = "";
@@ -37,8 +37,8 @@ export default {
     },
     navigateToCreator() {
       return this.$router.push("/question-creator");
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped></style>
