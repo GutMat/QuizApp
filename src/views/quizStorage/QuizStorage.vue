@@ -67,7 +67,6 @@
       </div>
 
       <div v-if="isQuizVisible">
-        {{ trivia }}
         <AppQuiz
           :question="trivia[1][currentIndex].question"
           :correct="trivia[1][currentIndex].correct_answer"
@@ -78,7 +77,6 @@
     </div>
 
     <div v-if="isOwnerQuizVisible">
-      {{ ownerQuiz }}
       <AppQuiz
         v-if="questionsAvailability"
         :question="ownerQuiz[currentIndex][0].question"

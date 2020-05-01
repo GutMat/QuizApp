@@ -54,16 +54,23 @@ export default {
       this.$store.commit("changeClicks", player);
     },
     selectedAnswer(value) {
-      this.$emit("incrementIndex");
       if (value == this.correct) {
         this.incrementScore();
         alert("Good answer :)");
         this.$refs[value][0].className = "btn btn-success col-md-4";
+        setTimeout(() => {
+          this.$refs[value][0].className = "btn btn-primary col-md-4";
+          return this.$emit("incrementIndex");
+        }, 500);
       } else {
         alert("Bad answer :(");
         this.$refs[value][0].className = "btn btn-danger col-md-4";
         let player = this.$store.getters.presentPlayer;
         this.$store.commit("changeClicks", player);
+        setTimeout(() => {
+          this.$refs[value][0].className = "btn btn-primary col-md-4";
+          this.$emit("incrementIndex");
+        }, 500);
       }
     }
   }

@@ -59,7 +59,6 @@
           aria-label="Type in incorrect answer"
         />
       </div>
-      <p>{{ answers }}</p>
       <div class="btn-group">
         <button @click="backToMenu" class="btn btn-sm btn-secondary btn">Back</button>
         <button @click="saveQuestion" class="btn btn-sm btn-secondary btn">Add question</button>
