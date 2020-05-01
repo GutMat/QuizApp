@@ -7,12 +7,11 @@
           <button
             v-for="(answer, index) in answers"
             :key="index"
+            :ref="answer"
             class="btn btn-primary col-md-4"
             style="margin: 10px"
             @click="selectedAnswer(answer)"
-          >
-            {{ answer }}
-          </button>
+          >{{ answer }}</button>
         </div>
       </div>
     </div>
@@ -31,7 +30,7 @@ export default {
   props: {
     correct: String,
     incorrect: Array,
-    question: String,
+    question: String
   },
   computed: {
     answers() {
@@ -46,7 +45,7 @@ export default {
     },
     questionDecoded() {
       return decodeHtml(this.question);
-    },
+    }
   },
   methods: {
     incrementScore() {
@@ -59,12 +58,14 @@ export default {
       if (value == this.correct) {
         this.incrementScore();
         alert("Good answer :)");
+        this.$refs[value][0].className = "btn btn-success col-md-4";
       } else {
         alert("Bad answer :(");
+        this.$refs[value][0].className = "btn btn-danger col-md-4";
         let player = this.$store.getters.presentPlayer;
         this.$store.commit("changeClicks", player);
       }
-    },
-  },
+    }
+  }
 };
 </script>

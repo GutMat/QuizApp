@@ -4,7 +4,11 @@
     <div v-for="(player, index) in players" :key="index" class="container-fluid">
       <div class="row" style="margin-bottom: 5px;">
         <div class="btn-group">
-          <span class="input-group-text" style="width: 450px;" disabled="disabled">{{ player.name }}</span>
+          <span
+            class="input-group-text text-ligth"
+            style="width: 450px;"
+            disabled="disabled"
+          >{{ player.name }}</span>
           <button @click="selectPlayer(player)" class="btn btn-info">Select</button>
           <button @click="removePlayer(index)" class="btn btn-danger">Remove</button>
         </div>

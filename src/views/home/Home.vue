@@ -28,6 +28,8 @@ export default {
 
   methods: {
     playAnonymously() {
+      let player = new Player("default");
+      this.$store.commit("selectPlayer", player);
       this.navigateToQuiz();
     },
     createPlayer() {
@@ -40,12 +42,6 @@ export default {
     },
     navigateToQuiz() {
       return this.$router.push("/quiz-menu");
-    },
-    navigateToPlayers() {
-      return this.$router.push("/players");
-    },
-    navigateToStats() {
-      return this.$router.push("/stats");
     },
     navigateToCreator() {
       return this.$router.push("/question-creator");
