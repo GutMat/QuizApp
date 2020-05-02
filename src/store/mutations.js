@@ -23,5 +23,5 @@ export const addQuestion = (state, payload) => {
 }
 
 export const removeQuestion = (state, payload) => {
-  state.quiz.splice(payload, 1)
+ state.quiz = state.quiz.filter(item => item[0].question !== payload)
 }

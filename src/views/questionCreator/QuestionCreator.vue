@@ -105,10 +105,14 @@
     </div>
     <div v-if="isQuestionManagementVisible">
       <h4>
-        {{ quizGetters.length == [] ? "There is no user question" : "Question Management" }}
+        {{
+          ownerQuiz.length == []
+            ? "There is no user question"
+            : "Question Management"
+        }}
       </h4>
       <div class="card-group">
-        <div v-for="(ele, index) in quizGetters" :key="index">
+        <div v-for="(ele, index) in ownerQuiz" :key="index">
           <div
             v-for="(question, index) in ele"
             :key="index"
@@ -122,10 +126,13 @@
             <span class="card-text">{{ question.correct }}</span>
             <br />
             <h6 class="card-title">Incorrect:</h6>
-            <div v-for="(answer, index) in question.incorrect" :key="index">
+            <div v-for="(answer, id) in question.incorrect" :key="id">
               <span class="card-text">{{ answer }}</span>
             </div>
-            <button @click="removeQuestion(index)" class="btn btn-danger">
+            <button
+              @click="removeQuestion(question.question)"
+              class="btn btn-danger"
+            >
               Remove question
             </button>
           </div>
@@ -149,7 +156,6 @@ export default {
   data() {
     return {
       quiz: [],
-      quizGetters: this.$store.getters.quiz,
       question: "",
       incorrectAnswerFirst: "",
       incorrectAnswerSecond: "",
@@ -192,7 +198,6 @@ export default {
         incorrect: this.answers.incorrectAnswers,
       });
       this.quiz = tempQuestions;
-      console.log(this.quiz);
       alert("Question successfully added");
       this.question = "";
       this.incorrectAnswerFirst = "";
@@ -202,14 +207,14 @@ export default {
       this.answers.incorrectAnswers = [];
       this.$store.commit("addQuestion", this.quiz);
     },
-    removeQuestion(index) {
-      this.$store.commit("removeQuestion", index);
+    removeQuestion(question) {
+      this.$store.commit("removeQuestion", question);
     },
     exportToDB() {
       this.$http
         .post(
           "https://quizapp-1c4de.firebaseio.com/questions.json",
-          this.quizGetters
+          this.ownerQuiz
         )
         .then(
           (response) => {
@@ -227,7 +232,6 @@ export default {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           for (let key in data) {
             for (let index = 0; index < data[key].length; index++) {
               this.$store.commit("addQuestion", data[key][index]);
@@ -238,11 +242,14 @@ export default {
   },
   computed: {
     isQuestionsAvailable() {
-      if (this.quizGetters.length == []) {
+      if (this.$store.getters.quiz.length == []) {
         return false;
       } else {
         return true;
       }
+    },
+    ownerQuiz() {
+      return this.$store.getters.quiz;
     },
   },
 };
