@@ -4,7 +4,7 @@
   >
     <div v-if="isMenuVisible" class="btn-group">
       <button
-        class="btn btn-lg btn-outline-secondary"
+        class="btn btn-lg btn-outline-dark"
         @click="isPlayerListVisible = !isPlayerListVisible"
       >
         {{ isPlayerListVisible ? "Hide player list" : "Show player list" }}
@@ -23,15 +23,15 @@
           >
         </select>
       </div>
-      <button @click="displayTrivia" class="btn btn-lg btn-outline-secondary">
+      <button @click="displayTrivia" class="btn btn-lg btn-outline-dark">
         Trivia
       </button>
-      <button @click="displayFlagQuiz" class="btn btn-lg btn-outline-secondary">
+      <button @click="displayFlagQuiz" class="btn btn-lg btn-outline-dark">
         Country-Flag Quiz
       </button>
       <button
         @click="displayOwnerQuiz"
-        class="btn btn-lg btn-outline-secondary"
+        class="btn btn-lg btn-outline-dark"
       >
         User Quiz
       </button>
@@ -41,14 +41,14 @@
       <CountryQuiz :flagQuiz="flagQuiz" @next="next"></CountryQuiz>
       <button
         @click="goBack"
-        class="btn btn-md btn-secondary col-5"
+        class="btn btn-md btn-dark col-5"
         style="margin-top: 10px"
       >
         Back
       </button>
       <button
         @click="next"
-        class="btn btn-md btn-secondary col-5"
+        class="btn btn-md btn-primary col-5"
         style="margin-top: 10px; float: right"
       >
         Next
@@ -86,11 +86,11 @@
           aria-describedby="basic-addon2"
         />
         <div class="btn-group col-12" style="margin-top: 20px; padding: 0px">
-          <button @click="goBack" class="btn btn-lg btn-secondary">
+          <button @click="goBack" class="btn btn-lg btn-dark">
             Go Back
           </button>
 
-          <button @click="displayQuiz" class="btn btn-lg btn-secondary">
+          <button @click="displayQuiz" class="btn btn-lg btn-primary">
             Display quiz
           </button>
         </div>
@@ -117,7 +117,7 @@
       <h4>{{ ownerQuiz.length == [] ? "There is no user question" : null }}</h4>
       <button
         @click="goBack"
-        class="btn btn-md btn-secondary col-12"
+        class="btn btn-md btn-dark col-12"
       >
         Back
       </button>

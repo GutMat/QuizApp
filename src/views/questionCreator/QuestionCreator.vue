@@ -15,9 +15,16 @@
       >
         Manage Question
       </button>
-      <button @click="importFromDB">Import questions</button>
+      <button @click="importFromDB" class="btn btn-lg btn-outline-secondary">
+        Import questions
+      </button>
     </div>
-    <div v-if="isQuestionFormVisible" class="col-12">
+    <div
+      v-if="isQuestionFormVisible"
+      class="col-12 col-sm-12 col-md-11 col-lg-9 col-xl-7"
+      style="margin: auto"
+    >
+      <h1>Question Creator</h1>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text bg-secondary text-light"
@@ -31,7 +38,6 @@
           aria-label="Type in question"
         />
       </div>
-      <p>{{ question }}</p>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text bg-success text-light"
@@ -84,34 +90,57 @@
           aria-label="Type in incorrect answer"
         />
       </div>
-      <div class="btn-group">
-        <button @click="backToMenu" class="btn btn-sm btn-secondary btn">
-          Back
-        </button>
-        <button @click="saveQuestion" class="btn btn-sm btn-secondary btn">
+      <div>
+        <button @click="saveQuestion" class="btn btn-md btn-primary btn">
           Add question
+        </button>
+        <button
+          @click="backToMenu"
+          class="btn btn-md btn-dark btn"
+          style="float: right"
+        >
+          Back
         </button>
       </div>
     </div>
     <div v-if="isQuestionManagementVisible">
-      {{ quizGetters.length == [] ? "There is no user question" : null }}
-      <div v-for="(ele, index) in quizGetters" :key="index">
-        <div v-for="(question, index) in ele" :key="index">
-          <h5>Question: {{ question.question }}</h5>
-          <h6>Correct:</h6>
-          <span>{{ question.correct }}</span>
-          <h6>Incorrect:</h6>
-          <div v-for="(answer, index) in question.incorrect" :key="index">
-            <span>{{ answer }}</span>
+      <h4>
+        {{ quizGetters.length == [] ? "There is no user question" : "Question Management" }}
+      </h4>
+      <div class="card-group">
+        <div v-for="(ele, index) in quizGetters" :key="index">
+          <div
+            v-for="(question, index) in ele"
+            :key="index"
+            class="card bg-secondary"
+            style="margin: 10px"
+          >
+            <div class="card-header bg-dark text-white">
+              Question: {{ question.question }}
+            </div>
+            <h6 class="card-title">Correct:</h6>
+            <span class="card-text">{{ question.correct }}</span>
+            <br />
+            <h6 class="card-title">Incorrect:</h6>
+            <div v-for="(answer, index) in question.incorrect" :key="index">
+              <span class="card-text">{{ answer }}</span>
+            </div>
+            <button @click="removeQuestion(index)" class="btn btn-danger">
+              Remove question
+            </button>
           </div>
         </div>
-        <button @click="removeQuestion(index)">Remove question</button>
-      </div>
-      <div v-if="isQuestionsAvailable">
-        <button @click="exportToDB">Export questions</button>
       </div>
 
-      <button @click="backToMenu">Back</button>
+      <div v-if="isQuestionsAvailable">
+        <button @click="exportToDB" class="btn btn-md btn-success col-12">
+          Export questions
+        </button>
+      </div>
+
+      <button @click="backToMenu" class="btn btn-md btn-dark col-12">
+        Back
+      </button>
     </div>
   </div>
 </template>

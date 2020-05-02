@@ -8,7 +8,7 @@
         v-for="(answer, index) in answers"
         :key="index"
         :ref="answer"
-        class="btn btn-secondary col-md-5"
+        class="btn btn-dark col-md-5"
         style="margin: 10px; paddng: 5px"
         @click="selectedAnswer(answer)"
       >
@@ -66,7 +66,7 @@ export default {
         this.incrementScore();
         this.$refs[value][0].className = "btn btn-success col-md-5";
         setTimeout(() => {
-          this.$refs[value][0].className = "btn btn-secondary col-md-5";
+          this.$refs[value][0].className = "btn btn-dark col-md-5";
           return this.$emit("incrementIndex");
         }, 500);
       } else {
@@ -74,7 +74,7 @@ export default {
         let player = this.$store.getters.presentPlayer;
         this.$store.commit("changeClicks", player);
         setTimeout(() => {
-          this.$refs[value][0].className = "btn btn-secondary col-md-5";
+          this.$refs[value][0].className = "btn btn-dark col-md-5";
           this.$emit("incrementIndex");
         }, 500);
       }
