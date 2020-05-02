@@ -1,17 +1,23 @@
 <template>
-  <div class="card">
-    <h3 class="card-title text-center">{{ questionDecoded }}</h3>
-    <div class="card-body text-center">
-      <div class="container-fluid">
-        <div class="col">
-          <button
-            v-for="(answer, index) in answers"
-            :key="index"
-            :ref="answer"
-            class="btn btn-primary col-md-4"
-            style="margin: 10px"
-            @click="selectedAnswer(answer)"
-          >{{ answer }}</button>
+  <div>
+    <div class="card text-center">
+      <div class="card-header">
+        <h4>{{ questionDecoded }}</h4>
+      </div>
+      <div class="card-body">
+        <div class="container-fluid">
+          <div class="col">
+            <button
+              v-for="(answer, index) in answers"
+              :key="index"
+              :ref="answer"
+              class="btn btn-secondary col-md-5"
+              style="margin: 10px; paddng: 5px"
+              @click="selectedAnswer(answer)"
+            >
+              {{ answer | removeEntity }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -30,7 +36,14 @@ export default {
   props: {
     correct: String,
     incorrect: Array,
-    question: String
+    question: String,
+  },
+  filters: {
+    removeEntity(value) {
+      var txt = document.createElement("textarea");
+      txt.innerHTML = value;
+      return txt.value;
+    },
   },
   computed: {
     answers() {
@@ -45,7 +58,7 @@ export default {
     },
     questionDecoded() {
       return decodeHtml(this.question);
-    }
+    },
   },
   methods: {
     incrementScore() {
@@ -54,25 +67,24 @@ export default {
       this.$store.commit("changeClicks", player);
     },
     selectedAnswer(value) {
-      if (value == this.correct) {
+      let updatedCorrect = decodeHtml(this.correct);
+      if (value == updatedCorrect) {
         this.incrementScore();
-        alert("Good answer :)");
-        this.$refs[value][0].className = "btn btn-success col-md-4";
+        this.$refs[value][0].className = "btn btn-success col-md-5";
         setTimeout(() => {
-          this.$refs[value][0].className = "btn btn-primary col-md-4";
+          this.$refs[value][0].className = "btn btn-secondary col-md-5";
           return this.$emit("incrementIndex");
         }, 500);
       } else {
-        alert("Bad answer :(");
-        this.$refs[value][0].className = "btn btn-danger col-md-4";
+        this.$refs[value][0].className = "btn btn-danger col-md-5";
         let player = this.$store.getters.presentPlayer;
         this.$store.commit("changeClicks", player);
         setTimeout(() => {
-          this.$refs[value][0].className = "btn btn-primary col-md-4";
+          this.$refs[value][0].className = "btn btn-secondary col-md-5";
           this.$emit("incrementIndex");
         }, 500);
       }
-    }
-  }
+    },
+  },
 };
 </script>

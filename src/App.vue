@@ -10,8 +10,8 @@
 import AppHeader from "./components/shared/Header.vue";
 export default {
   components: {
-    AppHeader
-  }
+    AppHeader,
+  },
 };
 </script>
 <style></style>

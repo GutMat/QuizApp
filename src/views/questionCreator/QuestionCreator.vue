@@ -1,23 +1,42 @@
 <template>
-  <div class="jumbotron d-flex align-items-center min-vh-100 justify-content-center pt-0">
+  <div
+    class="jumbotron d-flex align-items-center min-vh-100 justify-content-center pt-0"
+  >
     <div v-if="isQuestionCreatoreMenuIsVisible" class="btn-group">
-      <button @click="displayQuestionForm" class="btn btn-lg btn-outline-secondary">Add Question</button>
+      <button
+        @click="displayQuestionForm"
+        class="btn btn-lg btn-outline-secondary"
+      >
+        Add Question
+      </button>
       <button
         @click="displayQuestionManagement"
         class="btn btn-lg btn-outline-secondary"
-      >Manage Question</button>
+      >
+        Manage Question
+      </button>
+      <button @click="importFromDB">Import questions</button>
     </div>
     <div v-if="isQuestionFormVisible" class="col-12">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text bg-secondary text-light">Question:</span>
+          <span class="input-group-text bg-secondary text-light"
+            >Question:</span
+          >
         </div>
-        <input type="text" v-model="question" class="form-control" aria-label="Type in question" />
+        <input
+          type="text"
+          v-model="question"
+          class="form-control"
+          aria-label="Type in question"
+        />
       </div>
       <p>{{ question }}</p>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text bg-success text-light">Correct Answer:</span>
+          <span class="input-group-text bg-success text-light"
+            >Correct Answer:</span
+          >
         </div>
         <input
           type="text"
@@ -28,7 +47,9 @@
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text bg-danger text-light">Incorrect Answer:</span>
+          <span class="input-group-text bg-danger text-light"
+            >Incorrect Answer:</span
+          >
         </div>
         <input
           type="text"
@@ -39,7 +60,9 @@
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text bg-danger text-light">Incorrect Answer:</span>
+          <span class="input-group-text bg-danger text-light"
+            >Incorrect Answer:</span
+          >
         </div>
         <input
           type="text"
@@ -50,7 +73,9 @@
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text bg-danger text-light">Incorrect Answer:</span>
+          <span class="input-group-text bg-danger text-light"
+            >Incorrect Answer:</span
+          >
         </div>
         <input
           type="text"
@@ -60,8 +85,12 @@
         />
       </div>
       <div class="btn-group">
-        <button @click="backToMenu" class="btn btn-sm btn-secondary btn">Back</button>
-        <button @click="saveQuestion" class="btn btn-sm btn-secondary btn">Add question</button>
+        <button @click="backToMenu" class="btn btn-sm btn-secondary btn">
+          Back
+        </button>
+        <button @click="saveQuestion" class="btn btn-sm btn-secondary btn">
+          Add question
+        </button>
       </div>
     </div>
     <div v-if="isQuestionManagementVisible">
@@ -78,6 +107,10 @@
         </div>
         <button @click="removeQuestion(index)">Remove question</button>
       </div>
+      <div v-if="isQuestionsAvailable">
+        <button @click="exportToDB">Export questions</button>
+      </div>
+
       <button @click="backToMenu">Back</button>
     </div>
   </div>
@@ -94,11 +127,11 @@ export default {
       incorrectAnswerThird: "",
       answers: {
         correctAnswer: "",
-        incorrectAnswers: []
+        incorrectAnswers: [],
       },
       isQuestionCreatoreMenuIsVisible: true,
       isQuestionFormVisible: false,
-      isQuestionManagementVisible: false
+      isQuestionManagementVisible: false,
     };
   },
   methods: {
@@ -120,14 +153,14 @@ export default {
       let tempIncorrectAnswers = [
         this.incorrectAnswerFirst,
         this.incorrectAnswerSecond,
-        this.incorrectAnswerThird
+        this.incorrectAnswerThird,
       ];
       this.answers.incorrectAnswers = tempIncorrectAnswers;
       let tempQuestions = [];
       tempQuestions.push({
         question: this.question,
         correct: this.answers.correctAnswer,
-        incorrect: this.answers.incorrectAnswers
+        incorrect: this.answers.incorrectAnswers,
       });
       this.quiz = tempQuestions;
       console.log(this.quiz);
@@ -142,8 +175,47 @@ export default {
     },
     removeQuestion(index) {
       this.$store.commit("removeQuestion", index);
-    }
-  }
+    },
+    exportToDB() {
+      this.$http
+        .post(
+          "https://quizapp-1c4de.firebaseio.com/questions.json",
+          this.quizGetters
+        )
+        .then(
+          (response) => {
+            console.log(response);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    },
+    importFromDB() {
+      this.$http
+        .get("https://quizapp-1c4de.firebaseio.com/questions.json")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          for (let key in data) {
+            for (let index = 0; index < data[key].length; index++) {
+              this.$store.commit("addQuestion", data[key][index]);
+            }
+          }
+        });
+    },
+  },
+  computed: {
+    isQuestionsAvailable() {
+      if (this.quizGetters.length == []) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
 };
 </script>
 <style scoped>

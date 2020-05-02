@@ -1,17 +1,29 @@
 <template>
-  <div class="jumbotron d-flex align-items-center min-vh-100 justify-content-center">
-    <div class="col-6 input-group">
-      <input
-        type="text"
-        v-model="playerName"
-        class="form-control form-control-lg"
-        placeholder="Type in player name"
-        aria-label="Type in player name"
-        aria-describedby="basic-addon2"
-      />
-      <div class="input-group-append">
-        <button @click="createPlayer" class="btn btn-lg btn-outline-secondary">Create Player</button>
-        <button @click="playAnonymously" class="btn btn-lg btn-outline-secondary">Play Anonymously</button>
+  <div
+    class="jumbotron d-flex justify-content-center align-items-center min-vh-100"
+  >
+    <div class="col-xs-12">
+      <div class="">
+        <input
+          type="text"
+          v-model="playerName"
+          class="form-control form-control-lg"
+          placeholder="Type in player name"
+          aria-label="Type in player name"
+          aria-describedby="basic-addon2"
+        />
+      </div>
+
+      <div class="input-group-append ">
+        <button @click="createPlayer" class="btn btn-lg btn-outline-secondary">
+          Create Player
+        </button>
+        <button
+          @click="playAnonymously"
+          class="btn btn-lg btn-outline-secondary"
+        >
+          Play Anonymously
+        </button>
       </div>
     </div>
   </div>
@@ -22,7 +34,7 @@ import Player from "../../components/model/Player.js";
 export default {
   data() {
     return {
-      playerName: ""
+      playerName: "",
     };
   },
 
@@ -43,10 +55,7 @@ export default {
     navigateToQuiz() {
       return this.$router.push("/quiz-menu");
     },
-    navigateToCreator() {
-      return this.$router.push("/question-creator");
-    }
-  }
+  },
 };
 </script>
 <style scoped></style>
