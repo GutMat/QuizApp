@@ -38,11 +38,21 @@
     </div>
 
     <div v-if="isCountryQuizVisible">
-      <h3>Country-Flag Quiz</h3>
-
       <CountryQuiz :flagQuiz="flagQuiz" @next="next"></CountryQuiz>
-      <button @click="goBack" class="btn btn-sm btn-secondary">Back</button>
-      <button @click="next" class="btn btn-sm btn-secondary">Next</button>
+      <button
+        @click="goBack"
+        class="btn btn-md btn-secondary col-5"
+        style="margin-top: 10px"
+      >
+        Back
+      </button>
+      <button
+        @click="next"
+        class="btn btn-md btn-secondary col-5"
+        style="margin-top: 10px; float: right"
+      >
+        Next
+      </button>
     </div>
 
     <div v-if="isTriviaQuizVisible">
@@ -76,7 +86,7 @@
           aria-describedby="basic-addon2"
         />
         <div class="btn-group col-12" style="margin-top: 20px; padding: 0px">
-          <button @click="goBack" class="btn btn-lg btn-secondary btn">
+          <button @click="goBack" class="btn btn-lg btn-secondary">
             Go Back
           </button>
 
@@ -104,8 +114,13 @@
         :incorrect="ownerQuiz[currentIndex][0].incorrect"
         @incrementIndex="nextOwnerQuestion"
       ></AppQuiz>
-      {{ ownerQuiz.length == [] ? "There is no user question" : null }}
-      <button @click="goBack">Back</button>
+      <h4>{{ ownerQuiz.length == [] ? "There is no user question" : null }}</h4>
+      <button
+        @click="goBack"
+        class="btn btn-md btn-secondary col-12"
+      >
+        Back
+      </button>
     </div>
   </div>
 </template>

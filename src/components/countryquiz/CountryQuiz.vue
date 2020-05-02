@@ -1,28 +1,20 @@
 <template>
-  <div class="card">
-    <h3 class="card-title text-center">To what country this flag belongs?</h3>
-
-    <div class="card-body text-center">
-      <img
-        :src="flagQuiz.correctFlag.flag"
-        alt="flag"
-        style="width: 100px; height: 100px; margin-bottom: 25px;"
-      />
-
-      <div class="container-fluid">
-        <div class="col">
-          <button
-            v-for="(answer, index) in answers"
-            :key="index"
-            :ref="answer"
-            class="btn btn-primary col-md-4"
-            style="margin: 10px"
-            @click="selectedAnswer(answer)"
-          >
-            {{ answer }}
-          </button>
-        </div>
-      </div>
+  <div class="card text-center" style="width: 28rem;">
+    <div class="card-header">
+      <h4>To what country this flag belongs?</h4>
+    </div>
+    <img :src="flagQuiz.correctFlag.flag" alt="flag" class="card-img-top" />
+    <div class="card-body">
+      <button
+        v-for="(answer, index) in answers"
+        :key="index"
+        :ref="answer"
+        class="btn btn-secondary col-12"
+        style="margin: 5px 0px"
+        @click="selectedAnswer(answer)"
+      >
+        {{ answer }}
+      </button>
     </div>
   </div>
 </template>
@@ -59,22 +51,22 @@ export default {
     },
     selectedAnswer(value) {
       if (value == this.flagQuiz.correctFlag.name) {
-        this.$refs[value][0].className = "btn btn-success col-md-4";
+        this.$refs[value][0].className = "btn btn-success col-12";
 
         setTimeout(() => {
-          this.$refs[value][0].className = "btn btn-primary col-md-4";
+          this.$refs[value][0].className = "btn btn-secondary col-12";
 
           return this.$emit("next");
         }, 500);
 
         this.incrementScore();
       } else {
-        this.$refs[value][0].className = "btn btn-danger col-md-4";
+        this.$refs[value][0].className = "btn btn-danger col-12";
 
         let player = this.$store.getters.presentPlayer;
         this.$store.commit("changeClicks", player);
         setTimeout(() => {
-          this.$refs[value][0].className = "btn btn-primary col-md-4";
+          this.$refs[value][0].className = "btn btn-secondary col-12";
 
           return this.$emit("next");
         }, 500);

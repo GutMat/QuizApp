@@ -1,25 +1,19 @@
 <template>
-  <div>
-    <div class="card text-center">
-      <div class="card-header">
-        <h4>{{ questionDecoded }}</h4>
-      </div>
-      <div class="card-body">
-        <div class="container-fluid">
-          <div class="col">
-            <button
-              v-for="(answer, index) in answers"
-              :key="index"
-              :ref="answer"
-              class="btn btn-secondary col-md-5"
-              style="margin: 10px; paddng: 5px"
-              @click="selectedAnswer(answer)"
-            >
-              {{ answer | removeEntity }}
-            </button>
-          </div>
-        </div>
-      </div>
+  <div class="card text-center">
+    <div class="card-header">
+      <h4>{{ questionDecoded }}</h4>
+    </div>
+    <div class="card-body">
+      <button
+        v-for="(answer, index) in answers"
+        :key="index"
+        :ref="answer"
+        class="btn btn-secondary col-md-5"
+        style="margin: 10px; paddng: 5px"
+        @click="selectedAnswer(answer)"
+      >
+        {{ answer | removeEntity }}
+      </button>
     </div>
   </div>
 </template>
