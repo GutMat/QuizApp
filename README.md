@@ -37,5 +37,14 @@ npm run build
 npm run lint
 ```
 ### Visualisation of project
-![Home Page](/AppSS/Country Quiz.png)
-Format: ![Alt Text](url)
+![Home Page](/AppSS/Home.png)
+![Quiz Menu](/AppSS/QuizMenu.png)
+![TriviaForm](/AppSS/TriviaForm.png)
+![Trivia](/AppSS/Trivia.png)
+![Country](/AppSS/CountryQuiz.png)
+![Players](/AppSS/Players.png)
+![Stats](/AppSS/Stats.png)
+![Creator](/AppSS/Creator.png)
+![CreatorForm](/AppSS/CreatorForm.png)
+
+
