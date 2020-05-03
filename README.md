@@ -1,4 +1,21 @@
-# quiz-app
+# Quiz App
+
+Web Application wchich allow to play and creates quiz, trivias etc.
+User can choose category, level and amount of trivia.
+There is also possibility to verify knowledge at different area like awareness nation flags.
+Player can create own quiz and questions with special form.
+Next thing is that user can follow his stats and compete with other.
+
+## Fundamentals of project
+
+### App
+[Live version of app](https://confident-hodgkin-73ff57.netlify.app/)
+
+### Repository
+[App Code](https://github.com/GutMat/QuizApp)
+
+### Project management
+[Management](https://github.com/GutMat/QuizApp/projects/1)
 
 ## Project setup
 ```
@@ -20,5 +37,3 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
