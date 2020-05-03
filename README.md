@@ -1,6 +1,6 @@
 # Quiz App
 
-Web Application wchich allow to play and creates quiz, trivias etc.
+Web Application which allow to play and creates quiz, trivias etc.
 User can choose category, level and amount of trivia.
 There is also possibility to verify knowledge at different area like awareness nation flags.
 Player can create own quiz and questions with special form.
@@ -36,4 +36,6 @@ npm run build
 ```
 npm run lint
 ```
-
+### Visualisation of project
+![Home Page](/AppSS/Country Quiz.png)
+Format: ![Alt Text](url)
