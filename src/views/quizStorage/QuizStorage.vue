@@ -3,7 +3,7 @@
     class="jumbotron d-flex align-items-center min-vh-100 justify-content-center"
   >
     <div v-if="isMenuVisible">
-      <div class="btn-group col-12 col-sm-10 col-md-10 col-lg-9 col-xl-9">
+      <div class="btn-group col-12">
         <button
           class="btn btn-lg btn-outline-dark"
           @click="isPlayerListVisible = !isPlayerListVisible"
@@ -25,7 +25,7 @@
           </select>
         </div>
       </div>
-      <div class="btn-group col-12 col-sm-10 col-md-10 col-lg-9 col-xl-9">
+      <div class="btn-group col-12">
         <button @click="displayTrivia" class="btn btn-lg btn-outline-dark">
           Trivia
         </button>
