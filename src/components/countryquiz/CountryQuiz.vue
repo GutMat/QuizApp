@@ -1,5 +1,5 @@
 <template>
-  <div class="card text-center" style="width: 28rem;">
+  <div class="card text-center" style="width: 24rem;">
     <div class="card-header">
       <h4>To what country this flag belongs?</h4>
     </div>

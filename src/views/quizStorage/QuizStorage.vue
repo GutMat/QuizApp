@@ -2,39 +2,40 @@
   <div
     class="jumbotron d-flex align-items-center min-vh-100 justify-content-center"
   >
-    <div v-if="isMenuVisible" class="btn-group">
-      <button
-        class="btn btn-lg btn-outline-dark"
-        @click="isPlayerListVisible = !isPlayerListVisible"
-      >
-        {{ isPlayerListVisible ? "Hide player list" : "Show player list" }}
-      </button>
-      <div v-if="isPlayerListVisible" class="input-group-lg">
-        <select
-          v-model="selectedPlayer"
-          @change="updatePresentPlayer(selectedPlayer)"
-          class="custom-select-lg"
+    <div v-if="isMenuVisible">
+      <div class="btn-group col-12 col-sm-10 col-md-10 col-lg-9 col-xl-9">
+        <button
+          class="btn btn-lg btn-outline-dark"
+          @click="isPlayerListVisible = !isPlayerListVisible"
         >
-          <option
-            :value="player"
-            v-for="(player, index) in players"
-            :key="index"
-            >{{ player.name }}</option
+          {{ isPlayerListVisible ? "Hide player list" : "Show player list" }}
+        </button>
+        <div v-if="isPlayerListVisible" class="input-group-lg">
+          <select
+            v-model="selectedPlayer"
+            @change="updatePresentPlayer(selectedPlayer)"
+            class="custom-select-lg"
           >
-        </select>
+            <option
+              :value="player"
+              v-for="(player, index) in players"
+              :key="index"
+              >{{ player.name }}</option
+            >
+          </select>
+        </div>
       </div>
-      <button @click="displayTrivia" class="btn btn-lg btn-outline-dark">
-        Trivia
-      </button>
-      <button @click="displayFlagQuiz" class="btn btn-lg btn-outline-dark">
-        Country-Flag Quiz
-      </button>
-      <button
-        @click="displayOwnerQuiz"
-        class="btn btn-lg btn-outline-dark"
-      >
-        User Quiz
-      </button>
+      <div class="btn-group col-12 col-sm-10 col-md-10 col-lg-9 col-xl-9">
+        <button @click="displayTrivia" class="btn btn-lg btn-outline-dark">
+          Trivia
+        </button>
+        <button @click="displayFlagQuiz" class="btn btn-lg btn-outline-dark">
+          Country-Flag Quiz
+        </button>
+        <button @click="displayOwnerQuiz" class="btn btn-lg btn-outline-dark">
+          User Quiz
+        </button>
+      </div>
     </div>
 
     <div v-if="isCountryQuizVisible">
@@ -115,10 +116,7 @@
         @incrementIndex="nextOwnerQuestion"
       ></AppQuiz>
       <h4>{{ ownerQuiz.length == [] ? "There is no user question" : null }}</h4>
-      <button
-        @click="goBack"
-        class="btn btn-md btn-dark col-12"
-      >
+      <button @click="goBack" class="btn btn-md btn-dark col-12">
         Back
       </button>
     </div>

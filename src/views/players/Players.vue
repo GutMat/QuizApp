@@ -1,26 +1,26 @@
 <template>
   <div class="jumbotron min-vh-100">
     <h1 style="margin-bottom: 20px">List of players</h1>
-    <div
-      v-for="(player, index) in players"
-      :key="index"
-      class="container-fluid"
-    >
-      <div class="row" style="margin-bottom: 5px;">
-        <div class="btn-group">
-          <span
-            class="input-group-text"
-            style="width: 250px; font-weight: bold"
-            disabled="disabled"
-            >{{ player.name }}</span
-          >
-          <button @click="selectPlayer(player)" class="btn btn-info">
-            Select
-          </button>
-          <button @click="removePlayer(index)" class="btn btn-danger">
-            Remove
-          </button>
-        </div>
+    <div v-for="(player, index) in players" :key="index">
+      <div class="btn-group col-12 col-sm-10 col-md-8 col-xl-6 col-lg-7" style="margin-left: -15px">
+        <span
+          class="input-group-text col-6"
+          style="font-weight: bold"
+          disabled="disabled"
+          >{{ player.name }}</span
+        >
+        <button
+          @click="selectPlayer(player)"
+          class="btn btn-info col-3"
+        >
+          Select
+        </button>
+        <button
+          @click="removePlayer(index)"
+          class="btn btn-danger col-3"
+        >
+          Remove
+        </button>
       </div>
     </div>
   </div>
