@@ -1,23 +1,9 @@
 <template>
-  <div
-    class="jumbotron d-flex align-items-center min-vh-100 justify-content-center pt-0"
-  >
+  <div class="jumbotron d-flex align-items-center min-vh-100 justify-content-center pt-0">
     <div v-if="isQuestionCreatoreMenuIsVisible" class="btn-group">
-      <button
-        @click="displayQuestionForm"
-        class="btn btn-lg btn-outline-secondary"
-      >
-        Add Question
-      </button>
-      <button
-        @click="displayQuestionManagement"
-        class="btn btn-lg btn-outline-secondary"
-      >
-        Manage Question
-      </button>
-      <button @click="importFromDB" class="btn btn-lg btn-outline-secondary">
-        Import questions
-      </button>
+      <button @click="displayQuestionForm" class="btn btn-lg btn-outline-dark">Add Question</button>
+      <button @click="displayQuestionManagement" class="btn btn-lg btn-outline-dark">Manage Question</button>
+      <button @click="importFromDB" class="btn btn-lg btn-outline-dark">Import questions</button>
     </div>
     <div
       v-if="isQuestionFormVisible"
@@ -27,22 +13,13 @@
       <h1>Question Creator</h1>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text bg-secondary text-light"
-            >Question:</span
-          >
+          <span class="input-group-text bg-secondary text-light">Question:</span>
         </div>
-        <input
-          type="text"
-          v-model="question"
-          class="form-control"
-          aria-label="Type in question"
-        />
+        <input type="text" v-model="question" class="form-control" aria-label="Type in question" />
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text bg-success text-light"
-            >Correct Answer:</span
-          >
+          <span class="input-group-text bg-success text-light">Correct Answer:</span>
         </div>
         <input
           type="text"
@@ -53,9 +30,7 @@
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text bg-danger text-light"
-            >Incorrect Answer:</span
-          >
+          <span class="input-group-text bg-danger text-light">Incorrect Answer:</span>
         </div>
         <input
           type="text"
@@ -66,9 +41,7 @@
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text bg-danger text-light"
-            >Incorrect Answer:</span
-          >
+          <span class="input-group-text bg-danger text-light">Incorrect Answer:</span>
         </div>
         <input
           type="text"
@@ -79,9 +52,7 @@
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text bg-danger text-light"
-            >Incorrect Answer:</span
-          >
+          <span class="input-group-text bg-danger text-light">Incorrect Answer:</span>
         </div>
         <input
           type="text"
@@ -91,24 +62,16 @@
         />
       </div>
       <div>
-        <button @click="saveQuestion" class="btn btn-md btn-primary btn">
-          Add question
-        </button>
-        <button
-          @click="backToMenu"
-          class="btn btn-md btn-dark btn"
-          style="float: right"
-        >
-          Back
-        </button>
+        <button @click="saveQuestion" class="btn btn-md btn-primary btn">Add question</button>
+        <button @click="backToMenu" class="btn btn-md btn-dark btn" style="float: right">Back</button>
       </div>
     </div>
     <div v-if="isQuestionManagementVisible">
       <h4>
         {{
-          ownerQuiz.length == []
-            ? "There is no user question"
-            : "Question Management"
+        ownerQuiz.length == []
+        ? "There is no user question"
+        : "Question Management"
         }}
       </h4>
       <div class="card-group">
@@ -119,9 +82,7 @@
             class="card bg-secondary"
             style="margin: 10px"
           >
-            <div class="card-header bg-dark text-white">
-              Question: {{ question.question }}
-            </div>
+            <div class="card-header bg-dark text-white">Question: {{ question.question }}</div>
             <h6 class="card-title">Correct:</h6>
             <span class="card-text">{{ question.correct }}</span>
             <br />
@@ -132,22 +93,16 @@
             <button
               @click="removeQuestion(question.question)"
               class="btn btn-danger"
-            >
-              Remove question
-            </button>
+            >Remove question</button>
           </div>
         </div>
       </div>
 
       <div v-if="isQuestionsAvailable">
-        <button @click="exportToDB" class="btn btn-md btn-success col-12">
-          Export questions
-        </button>
+        <button @click="exportToDB" class="btn btn-md btn-success col-12">Export questions</button>
       </div>
 
-      <button @click="backToMenu" class="btn btn-md btn-dark col-12">
-        Back
-      </button>
+      <button @click="backToMenu" class="btn btn-md btn-dark col-12">Back</button>
     </div>
   </div>
 </template>
@@ -162,11 +117,11 @@ export default {
       incorrectAnswerThird: "",
       answers: {
         correctAnswer: "",
-        incorrectAnswers: [],
+        incorrectAnswers: []
       },
       isQuestionCreatoreMenuIsVisible: true,
       isQuestionFormVisible: false,
-      isQuestionManagementVisible: false,
+      isQuestionManagementVisible: false
     };
   },
   methods: {
@@ -188,14 +143,14 @@ export default {
       let tempIncorrectAnswers = [
         this.incorrectAnswerFirst,
         this.incorrectAnswerSecond,
-        this.incorrectAnswerThird,
+        this.incorrectAnswerThird
       ];
       this.answers.incorrectAnswers = tempIncorrectAnswers;
       let tempQuestions = [];
       tempQuestions.push({
         question: this.question,
         correct: this.answers.correctAnswer,
-        incorrect: this.answers.incorrectAnswers,
+        incorrect: this.answers.incorrectAnswers
       });
       this.quiz = tempQuestions;
       alert("Question successfully added");
@@ -217,10 +172,10 @@ export default {
           this.ownerQuiz
         )
         .then(
-          (response) => {
+          response => {
             console.log(response);
           },
-          (error) => {
+          error => {
             console.log(error);
           }
         );
@@ -228,17 +183,17 @@ export default {
     importFromDB() {
       this.$http
         .get("https://quizapp-1c4de.firebaseio.com/questions.json")
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((data) => {
+        .then(data => {
           for (let key in data) {
             for (let index = 0; index < data[key].length; index++) {
               this.$store.commit("addQuestion", data[key][index]);
             }
           }
         });
-    },
+    }
   },
   computed: {
     isQuestionsAvailable() {
@@ -250,8 +205,8 @@ export default {
     },
     ownerQuiz() {
       return this.$store.getters.quiz;
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
